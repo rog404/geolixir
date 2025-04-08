@@ -73,7 +73,7 @@ iex> Geolixir.reverse_geocode(999.0, 999.0)
 
 ## 📚 Documentation
 
-Full documentation can be generated using ExDoc and published on [HexDocs](https://hexdocs.pm). Once published, the docs can be found at <https://hexdocs.pm/geolixir>.
+Full documentation can be generated using ExDoc and published on [HexDocs](https://hexdocs.pm/geolixir).
 
 
 ## 📝 License

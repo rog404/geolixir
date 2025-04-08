@@ -14,9 +14,6 @@ defmodule Geolixir do
   def deps do
     [
       {:geolixir, "~> 0.1.0"}
-      # Ensure you have :httpoison and :jason as well
-      # {:httpoison, "~> 2.0"},
-      # {:jason, "~> 1.2"}
     ]
   end
   ```
