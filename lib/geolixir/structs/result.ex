@@ -1,11 +1,20 @@
 defmodule Geolixir.Result do
   @moduledoc """
-  Represents the result of a geolocation query, including coordinates, bounds, and metadata.
+  Represents a standardized result from a geocoding or reverse geocoding operation.
+
+  This struct consolidates information parsed from various provider responses into
+  a consistent format.
   """
 
   alias Geolixir.{Bounds, Coords, Location}
 
-  @typedoc "Geographic coordinates with associated metadata"
+  @typedoc """
+  The struct holding standardized geolocation results.
+  - `:coordinates`: A `Geolixir.Coords` struct with latitude and longitude.
+  - `:bounds`: A `Geolixir.Bounds` struct representing the bounding box, if available.
+  - `:location`: A `Geolixir.Location` struct containing address components.
+  - `:metadata`: The original, raw response map from the provider for debugging or accessing provider-specific fields.
+  """
   @type t :: %__MODULE__{
           coordinates: Coords.t() | nil,
           bounds: Bounds.t() | nil,

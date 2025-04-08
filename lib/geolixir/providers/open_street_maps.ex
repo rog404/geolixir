@@ -1,10 +1,25 @@
 defmodule Geolixir.Providers.OpenStreetMaps do
   @moduledoc """
-  OpenStreetMap geocoding provider.
-  Does NOT requires a key.
+  Geolixir provider for the OpenStreetMap Nominatim API.
+
+  This provider uses the public Nominatim service (`https://nominatim.openstreetmap.org`).
+
+  ## Features
+  - Geocoding (address to coordinates)
+  - Reverse Geocoding (coordinates to address)
+
+  ## Configuration
+  - **API Key:** Not required for the public Nominatim API.
+  - **Endpoint:** `https://nominatim.openstreetmap.org` (configurable via Base, but usually not needed)
+
+  ## Usage Notes
+  - Be mindful of the [Nominatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/), especially regarding rate limits and acceptable use for the public API. For heavy usage, consider hosting your own instance.
+  - Default language for results is English (`"accept-language": "en"`).
+  - Address details are requested by default (`addressdetails: 1`).
   """
 
   alias Geolixir.{Bounds, Coords, Location, Result}
+  alias Geolixir.HttpClient
 
   use Geolixir.Providers.Base,
     endpoint: "https://nominatim.openstreetmap.org",
@@ -46,7 +61,7 @@ defmodule Geolixir.Providers.OpenStreetMaps do
     path = if action == :search, do: @search_path, else: @reverse_path
     url = @endpoint <> path
 
-    Geolixir.HttpClient.request(%{
+    HttpClient.request(%{
       method: :get,
       url: url,
       query_params: Map.merge(payload, @defaults)

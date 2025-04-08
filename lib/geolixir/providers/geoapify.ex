@@ -90,7 +90,7 @@ defmodule Geolixir.Providers.Geoapify do
     %Coords{lat: lat, lon: lon}
   end
 
-  defp parse_bounds(%{"boundingbox" => [north, south, west, east] }) do
+  defp parse_bounds(%{"boundingbox" => [north, south, west, east]}) do
     %Bounds{top: north, right: east, bottom: south, left: west}
   end
 

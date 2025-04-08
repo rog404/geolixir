@@ -71,9 +71,10 @@ iex> Geolixir.reverse_geocode(999.0, 999.0)
 *   Add support for more geocoding providers.
 *   Enhance error handling.
 
-## 📚 Documentation (Coming Soon...)
+## 📚 Documentation
 
-~~Full documentation can be found on [HexDocs](https://hexdocs.pm/geolixir).~~
+Full documentation can be generated using ExDoc and published on [HexDocs](https://hexdocs.pm). Once published, the docs can be found at <https://hexdocs.pm/geolixir>.
+
 
 ## 📝 License
 

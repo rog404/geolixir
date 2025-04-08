@@ -32,12 +32,14 @@ defmodule Geolixir.Providers.PositionStackTest do
 
     test "returns {:error, reason} on HTTP client error" do
       expect(HttpClient, :request, fn _ -> ProviderFixtures.http_error_response() end)
+
       assert {:error, {:error, %{status_code: 500}}} =
                PositionStack.geocode(%{address: @address}, api_key: @api_key)
     end
 
     test "returns {:error, reason} on HTTPoison error" do
       expect(HttpClient, :request, fn _ -> ProviderFixtures.http_poison_error() end)
+
       assert {:error, {:error, %HTTPoison.Error{}}} =
                PositionStack.geocode(%{address: @address}, api_key: @api_key)
     end

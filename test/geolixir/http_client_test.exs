@@ -124,14 +124,16 @@ defmodule Geolixir.HttpClientTest do
     end
 
     test "passes http_options correctly" do
-      http_options = [recv_timeout: 10000, ssl: [verify: :verify_peer]]
+      http_options = [recv_timeout: 10_000, ssl: [verify: :verify_peer]]
 
       expect(HTTPoison, :request, fn :get, @base_url, "", [], [params: %{}] ++ ^http_options ->
         {:ok, %HTTPoison.Response{status_code: 200, body: @success_json_body, headers: []}}
       end)
 
       request_map = %{method: :get, url: @base_url}
-      assert {:ok, %{status_code: 200}} = HttpClient.request(request_map, http_options: http_options)
+
+      assert {:ok, %{status_code: 200}} =
+               HttpClient.request(request_map, http_options: http_options)
     end
   end
 end
