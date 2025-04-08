@@ -1,7 +1,7 @@
 defmodule Geolixir.MixProject do
   use Mix.Project
 
-  @version "0.1.1"
+  @version "0.1.2-dev"
 
   def project do
     [
@@ -57,8 +57,6 @@ defmodule Geolixir.MixProject do
   defp deps do
     [
       {:httpoison, "~> 2.0"},
-      # Explicitly add Jason if not already present, needed by HTTPoison/ExDoc
-      {:jason, "~> 1.2"},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:mimic, "~> 1.10", only: :test}
