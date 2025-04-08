@@ -16,7 +16,7 @@ Add `geolixir` to your `mix.exs` dependencies:
 ```elixir
 def deps do
   [
-    {:geolixir, "~> 0.1.0"}
+    {:geolixir, "~> 0.1.1"}
   ]
 end
 ```
@@ -59,7 +59,7 @@ iex> Geolixir.reverse_geocode(40.7128, -74.0060, provider: :position_stack, api_
 
 # Handling errors
 iex> Geolixir.reverse_geocode(999.0, 999.0)
-{:error, :invalid_coordinates} # Example error
+{:error, _provider_error_map} # Example error
 ```
 
 **Note:** Some providers require an API key. Pass it using the `api_key: "your_key"` option. Check the specific provider module documentation for details.
