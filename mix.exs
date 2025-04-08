@@ -30,7 +30,7 @@ defmodule Geolixir.MixProject do
 
   defp package do
     [
-      name: "Geolixir",
+      name: "geolixir",
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/rog404/geolixir"},
       maintainers: ["Rogerio Bordignon"]
