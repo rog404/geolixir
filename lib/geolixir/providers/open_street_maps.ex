@@ -24,7 +24,7 @@ defmodule Geolixir.Providers.OpenStreetMaps do
     "house_number" => :street_number
   }
 
-  @defaults %{format: "json", "accept-language": "en", addressdetails: 1}
+  @defaults %{format: "jsonv2", "accept-language": "en", addressdetails: 1}
 
   @impl true
   def geocode(payload, opts) do
@@ -74,12 +74,13 @@ defmodule Geolixir.Providers.OpenStreetMaps do
   defp process_response(response), do: response
 
   defp build_result(response) do
-    %Result{
-      coordinates: parse_coords(response),
-      bounds: parse_bounds(response),
-      location: parse_location(response),
-      metadata: response
-    }
+    {:ok,
+     %Result{
+       coordinates: parse_coords(response),
+       bounds: parse_bounds(response),
+       location: parse_location(response),
+       metadata: response
+     }}
   end
 
   defp parse_coords(%{"lat" => lat, "lon" => lon}) do
@@ -110,4 +111,6 @@ defmodule Geolixir.Providers.OpenStreetMaps do
     address
     |> Enum.reduce(location, reduce)
   end
+
+  defp parse_location(_), do: %Location{}
 end

@@ -77,12 +77,13 @@ defmodule Geolixir.Providers.Geoapify do
   defp process_response(response), do: response
 
   defp build_result(response) do
-    %Result{
-      coordinates: parse_coords(response["geometry"]),
-      bounds: parse_bounds(response),
-      location: parse_location(response["properties"]),
-      metadata: response
-    }
+    {:ok,
+     %Result{
+       coordinates: parse_coords(response["geometry"]),
+       bounds: parse_bounds(response),
+       location: parse_location(response["properties"]),
+       metadata: response
+     }}
   end
 
   defp parse_coords(%{"coordinates" => [lat, lon]}) do

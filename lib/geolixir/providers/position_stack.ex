@@ -64,7 +64,7 @@ defmodule Geolixir.Providers.PositionStack do
   end
 
   defp prepare_payload(payload, :reverse_geocode) do
-    %{lat: payload[:lat], lon: payload[:lon]}
+    %{@query_word => "#{payload[:lat]}, #{payload[:lon]}"}
   end
 
   defp process_response({:ok, %{body: body}}) do
@@ -79,11 +79,12 @@ defmodule Geolixir.Providers.PositionStack do
   end
 
   defp build_result(response) do
-    %Result{
-      coordinates: parse_coords(response),
-      location: parse_location(response),
-      metadata: response
-    }
+    {:ok,
+     %Result{
+       coordinates: parse_coords(response),
+       location: parse_location(response),
+       metadata: response
+     }}
   end
 
   defp parse_coords(%{"latitude" => lat, "longitude" => lon}) do

@@ -67,12 +67,13 @@ defmodule Geolixir.Providers.Geocoding do
   defp process_response(response), do: response
 
   defp build_result(response) do
-    %Result{
-      coordinates: parse_coords(response),
-      bounds: parse_bounds(response),
-      location: parse_location(response),
-      metadata: response
-    }
+    {:ok,
+     %Result{
+       coordinates: parse_coords(response),
+       bounds: parse_bounds(response),
+       location: parse_location(response),
+       metadata: response
+     }}
   end
 
   defp parse_coords(%{"lat" => lat, "lon" => lon}) do
