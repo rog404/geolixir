@@ -6,7 +6,7 @@ Welcome to Geolixir! This library makes it simple to work with geocoding in your
 
 *   **Geocoding:** Find latitude and longitude from an address.
 *   **Reverse Geocoding:** Find address details from latitude and longitude.
-*   **Multiple Providers:** Supports various geocoding services (like OpenStreetMaps, Geoapify, etc.). You can choose your preferred provider or stick with the default.
+*   **Multiple Providers:** Supports various geocoding services (like OpenStreetMap, Geoapify, etc.). You can choose your preferred provider or stick with the default.
 *   **Simple Interface:** Easy-to-use functions for common tasks.
 
 ## 🚀 Installation
@@ -30,7 +30,7 @@ Here's how you can use Geolixir:
 ### Geocoding (Address to Coordinates)
 
 ```elixir
-# Using the default provider (OpenStreetMaps)
+# Using the default provider (OpenStreetMap)
 iex> Geolixir.geocode("1600 Amphitheatre Parkway, Mountain View, CA")
 {:ok, %Geolixir.Result{
   coordinates: %Geolixir.Coords{lat: 37.4224764, lon: -122.0842499},

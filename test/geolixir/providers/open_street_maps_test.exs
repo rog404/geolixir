@@ -1,9 +1,9 @@
-defmodule Geolixir.Providers.OpenStreetMapsTest do
+defmodule Geolixir.Providers.OpenStreetMapTest do
   use ExUnit.Case, async: true
   use Mimic
 
   alias Geolixir.HttpClient
-  alias Geolixir.Providers.OpenStreetMaps
+  alias Geolixir.Providers.OpenStreetMap
   alias Geolixir.Result
   alias Geolixir.Test.ProviderFixtures
 
@@ -17,7 +17,7 @@ defmodule Geolixir.Providers.OpenStreetMapsTest do
         ProviderFixtures.osm_geocode_success_response()
       end)
 
-      assert {:ok, %Result{}} = result = OpenStreetMaps.geocode(%{address: @address})
+      assert {:ok, %Result{}} = result = OpenStreetMap.geocode(%{address: @address})
       assert result == ProviderFixtures.osm_expected_result()
     end
 
@@ -25,17 +25,17 @@ defmodule Geolixir.Providers.OpenStreetMapsTest do
       expect(HttpClient, :request, fn _ -> ProviderFixtures.http_empty_response() end)
 
       assert {:error, "No results found for the given address"} =
-               OpenStreetMaps.geocode(%{address: @address})
+               OpenStreetMap.geocode(%{address: @address})
     end
 
     test "returns {:error, reason} on HTTP client error" do
       expect(HttpClient, :request, fn _ -> ProviderFixtures.http_error_response() end)
-      assert {:error, %{status_code: 500}} = OpenStreetMaps.geocode(%{address: @address})
+      assert {:error, %{status_code: 500}} = OpenStreetMap.geocode(%{address: @address})
     end
 
     test "returns {:error, reason} on HTTPoison error" do
       expect(HttpClient, :request, fn _ -> ProviderFixtures.http_poison_error() end)
-      assert {:error, %HTTPoison.Error{}} = OpenStreetMaps.geocode(%{address: @address})
+      assert {:error, %HTTPoison.Error{}} = OpenStreetMap.geocode(%{address: @address})
     end
   end
 
@@ -46,28 +46,28 @@ defmodule Geolixir.Providers.OpenStreetMapsTest do
       end)
 
       assert {:ok, %Result{}} =
-               result = OpenStreetMaps.reverse_geocode(%{lat: @lat, lon: @lon})
+               result = OpenStreetMap.reverse_geocode(%{lat: @lat, lon: @lon})
 
       assert result == ProviderFixtures.osm_expected_result()
     end
 
     test "returns {:error, reason} on failure reverse geocoding" do
       expect(HttpClient, :request, fn _ -> ProviderFixtures.unable_to_reverse_geocoding() end)
-      assert {:error, "Unable to geocode"} = OpenStreetMaps.reverse_geocode(%{address: @address})
+      assert {:error, "Unable to geocode"} = OpenStreetMap.reverse_geocode(%{address: @address})
     end
 
     test "returns {:error, reason} on HTTP client error" do
       expect(HttpClient, :request, fn _ -> ProviderFixtures.http_error_response() end)
 
       assert {:error, %{status_code: 500}} =
-               OpenStreetMaps.reverse_geocode(%{lat: @lat, lon: @lon})
+               OpenStreetMap.reverse_geocode(%{lat: @lat, lon: @lon})
     end
 
     test "returns {:error, reason} on HTTPoison error" do
       expect(HttpClient, :request, fn _ -> ProviderFixtures.http_poison_error() end)
 
       assert {:error, %HTTPoison.Error{}} =
-               OpenStreetMaps.reverse_geocode(%{lat: @lat, lon: @lon})
+               OpenStreetMap.reverse_geocode(%{lat: @lat, lon: @lon})
     end
   end
 end

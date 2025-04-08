@@ -6,7 +6,7 @@ defmodule Geolixir.Test.ProviderFixtures do
 
   alias Geolixir.{Bounds, Coords, Location, Result}
 
-  # --- OpenStreetMaps & Geocoding Fixtures ---
+  # --- OpenStreetMap & Geocoding Fixtures ---
 
   @osm_response_map %{
     "address" => %{

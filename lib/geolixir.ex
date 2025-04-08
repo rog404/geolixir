@@ -27,7 +27,7 @@ defmodule Geolixir do
   ### Geocoding
 
   ```elixir
-  # Using the default provider (OpenStreetMaps)
+  # Using the default provider (OpenStreetMap)
   iex> Geolixir.geocode("1600 Amphitheatre Parkway, Mountain View, CA")
   {:ok, %Geolixir.Result{
     coordinates: %Geolixir.Coords{lat: 37.4224764, lon: -122.0842499},
@@ -61,7 +61,7 @@ defmodule Geolixir do
   alias Geolixir.Result
 
   @provider_modules %{
-    open_street_maps: Geolixir.Providers.OpenStreetMaps,
+    open_street_maps: Geolixir.Providers.OpenStreetMap,
     geoapify: Geolixir.Providers.Geoapify,
     geocoding: Geolixir.Providers.Geocoding,
     position_stack: Geolixir.Providers.PositionStack

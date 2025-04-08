@@ -2,7 +2,7 @@ defmodule GeolixirTest do
   use ExUnit.Case, async: true
   use Mimic
 
-  alias Geolixir.Providers.{Geoapify, OpenStreetMaps}
+  alias Geolixir.Providers.{Geoapify, OpenStreetMap}
   alias Geolixir.Result
 
   @address "London"
@@ -10,13 +10,13 @@ defmodule GeolixirTest do
   @lon -0.127
 
   setup do
-    Mimic.copy(OpenStreetMaps)
+    Mimic.copy(OpenStreetMap)
     Mimic.copy(Geoapify)
   end
 
   describe "geocode/2" do
-    test "uses the default provider (OpenStreetMaps) when none is specified" do
-      expect(OpenStreetMaps, :geocode, fn %{address: @address}, [] ->
+    test "uses the default provider (OpenStreetMap) when none is specified" do
+      expect(OpenStreetMap, :geocode, fn %{address: @address}, [] ->
         {:ok, %Result{metadata: %{"provider" => "osm"}}}
       end)
 
@@ -59,8 +59,8 @@ defmodule GeolixirTest do
   end
 
   describe "reverse_geocode/3" do
-    test "uses the default provider (OpenStreetMaps) when none is specified" do
-      expect(OpenStreetMaps, :reverse_geocode, fn %{lat: @lat, lon: @lon}, [] ->
+    test "uses the default provider (OpenStreetMap) when none is specified" do
+      expect(OpenStreetMap, :reverse_geocode, fn %{lat: @lat, lon: @lon}, [] ->
         {:ok, %Result{metadata: %{"provider" => "osm"}}}
       end)
 
@@ -80,7 +80,7 @@ defmodule GeolixirTest do
     end
 
     test "returns an error tuple when the provider returns an error" do
-      expect(OpenStreetMaps, :reverse_geocode, fn %{lat: @lat, lon: @lon}, [] ->
+      expect(OpenStreetMap, :reverse_geocode, fn %{lat: @lat, lon: @lon}, [] ->
         {:error, :provider_error}
       end)
 

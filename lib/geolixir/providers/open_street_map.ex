@@ -1,4 +1,4 @@
-defmodule Geolixir.Providers.OpenStreetMaps do
+defmodule Geolixir.Providers.OpenStreetMap do
   @moduledoc """
   Geolixir provider for the OpenStreetMap Nominatim API.
 
