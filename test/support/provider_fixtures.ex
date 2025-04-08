@@ -6,7 +6,7 @@ defmodule Geolixir.Test.ProviderFixtures do
 
   alias Geolixir.{Bounds, Coords, Location, Result}
 
-  # --- OpenStreetMaps Fixtures ---
+  # --- OpenStreetMaps & Geocoding Fixtures ---
 
   @osm_response_map %{
     "address" => %{
@@ -276,82 +276,6 @@ defmodule Geolixir.Test.ProviderFixtures do
 
   def geoapify_expected_result, do: @geoapify_expected_result
 
-  # --- Geocoding Fixtures ---
-
-  @geocoding_response_map [
-    %{
-      "boundingbox" => ["51.5073633", "51.5074633", "-0.1277365", "-0.1276365"],
-      "class" => "historic",
-      "display_name" =>
-        "Mileage Central Point of London Plaque, Charing Cross, Seven Dials, Covent Garden, City of Westminster, Greater London, England, SW1A 2DR, United Kingdom",
-      "importance" => 0.60001,
-      "lat" => "51.5074133",
-      "licence" => "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
-      "lon" => "-0.1276865",
-      "osm_id" => 7_817_017_136,
-      "osm_type" => "node",
-      "place_id" => 248_477_158,
-      "type" => "memorial"
-    }
-  ]
-
-  @geocoding_expected_result {:ok,
-                              %Result{
-                                coordinates: %Coords{
-                                  lat: "51.5074133",
-                                  lon: "-0.1276865"
-                                },
-                                bounds: %Bounds{
-                                  top: 51.5073633,
-                                  right: -0.1276365,
-                                  bottom: 51.5074633,
-                                  left: -0.1277365
-                                },
-                                location: %Location{
-                                  country: nil,
-                                  country_code: nil,
-                                  state: nil,
-                                  county: nil,
-                                  city: nil,
-                                  postal_code: nil,
-                                  street: nil,
-                                  street_number: nil,
-                                  formatted_address:
-                                    "Mileage Central Point of London Plaque, Charing Cross, Seven Dials, Covent Garden, City of Westminster, Greater London, England, SW1A 2DR, United Kingdom"
-                                },
-                                metadata: %{
-                                  "boundingbox" => [
-                                    "51.5073633",
-                                    "51.5074633",
-                                    "-0.1277365",
-                                    "-0.1276365"
-                                  ],
-                                  "class" => "historic",
-                                  "display_name" =>
-                                    "Mileage Central Point of London Plaque, Charing Cross, Seven Dials, Covent Garden, City of Westminster, Greater London, England, SW1A 2DR, United Kingdom",
-                                  "importance" => 0.60001,
-                                  "lat" => "51.5074133",
-                                  "licence" =>
-                                    "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
-                                  "lon" => "-0.1276865",
-                                  "osm_id" => 7_817_017_136,
-                                  "osm_type" => "node",
-                                  "place_id" => 248_477_158,
-                                  "type" => "memorial"
-                                }
-                              }}
-
-  def geocoding_success_response do
-    {:ok,
-     %{
-       status_code: 200,
-       headers: [],
-       body: @geocoding_response_map
-     }}
-  end
-
-  def geocoding_expected_result, do: @geocoding_expected_result
-
   # --- PositionStack Fixtures ---
 
   @ps_response_map %{
@@ -450,6 +374,28 @@ defmodule Geolixir.Test.ProviderFixtures do
   def position_stack_expected_result, do: @ps_expected_result
 
   # --- Common Error Fixtures ---
+
+  def unable_to_reverse_geocoding do
+    {
+      :ok,
+      %{
+        status_code: 200,
+        headers: [],
+        body: %{"error" => "Unable to geocode"}
+      }
+    }
+  end
+
+  def http_empty_response do
+    {
+      :ok,
+      %{
+        status_code: 200,
+        headers: [],
+        body: []
+      }
+    }
+  end
 
   def http_error_response(status_code \\ 500, body \\ "Server Error") do
     # Simulate an error response tuple from HttpClient

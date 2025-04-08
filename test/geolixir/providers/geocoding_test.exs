@@ -15,13 +15,20 @@ defmodule Geolixir.Providers.GeocodingTest do
   describe "geocode/2" do
     test "returns {:ok, Result.t()} on successful geocoding" do
       expect(HttpClient, :request, fn %{method: :get} ->
-        ProviderFixtures.geocoding_success_response()
+        ProviderFixtures.osm_geocode_success_response()
       end)
 
       assert {:ok, %Result{}} =
                result = Geocoding.geocode(%{address: @address}, api_key: @api_key)
 
-      assert result == ProviderFixtures.geocoding_expected_result()
+      assert result == ProviderFixtures.osm_expected_result()
+    end
+
+    test "returns {:error, reason} on empty geocoding response" do
+      expect(HttpClient, :request, fn _ -> ProviderFixtures.http_empty_response() end)
+
+      assert {:error, "No results found for the given address"} =
+               Geocoding.geocode(%{address: @address}, api_key: @api_key)
     end
 
     test "raises ArgumentError if api_key is missing" do
@@ -48,13 +55,20 @@ defmodule Geolixir.Providers.GeocodingTest do
   describe "reverse_geocode/2" do
     test "returns {:ok, Result.t()} on successful reverse geocoding" do
       expect(HttpClient, :request, fn %{method: :get} ->
-        ProviderFixtures.geocoding_success_response()
+        ProviderFixtures.osm_geocode_success_response()
       end)
 
       assert {:ok, %Result{}} =
                result = Geocoding.reverse_geocode(%{lat: @lat, lon: @lon}, api_key: @api_key)
 
-      assert result == ProviderFixtures.geocoding_expected_result()
+      assert result == ProviderFixtures.osm_expected_result()
+    end
+
+    test "returns {:error, reason} on failure reverse geocoding" do
+      expect(HttpClient, :request, fn _ -> ProviderFixtures.unable_to_reverse_geocoding() end)
+
+      assert {:error, "Unable to geocode"} =
+               Geocoding.reverse_geocode(%{address: @address}, api_key: @api_key)
     end
 
     test "raises ArgumentError if api_key is missing" do

@@ -88,6 +88,18 @@ defmodule Geolixir.Providers.OpenStreetMaps do
 
   defp process_response(response), do: response
 
+  defp build_result([]) do
+    {:error, "No results found for the given address"}
+  end
+
+  defp build_result(nil) do
+    {:error, "No results found for the given address"}
+  end
+
+  defp build_result(%{"error" => error}) do
+    {:error, error}
+  end
+
   defp build_result(response) do
     {:ok,
      %Result{

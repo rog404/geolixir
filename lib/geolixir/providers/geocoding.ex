@@ -14,8 +14,18 @@ defmodule Geolixir.Providers.Geocoding do
 
   @key_params_name "api_key"
 
+  @defaults %{format: "jsonv2", "accept-language": "en", addressdetails: 1}
+
   @address_component_mapping %{
-    "display_name" => :formatted_address
+    "country" => :country,
+    "country_code" => :country_code,
+    "state" => :state,
+    "suburb" => :county,
+    "county" => :county,
+    "city" => :city,
+    "postcode" => :postal_code,
+    "road" => :street,
+    "house_number" => :street_number
   }
 
   @impl true
@@ -46,7 +56,7 @@ defmodule Geolixir.Providers.Geocoding do
     Geolixir.HttpClient.request(%{
       method: :get,
       url: url,
-      query_params: Map.merge(payload, %{@key_params_name => api_key})
+      query_params: Map.merge(payload, %{@key_params_name => api_key}) |> Map.merge(@defaults)
     })
   end
 
@@ -58,13 +68,29 @@ defmodule Geolixir.Providers.Geocoding do
     %{lat: payload[:lat], lon: payload[:lon]}
   end
 
-  defp process_response({:ok, %{body: body}}) do
+  defp process_response({:ok, %{body: body}}) when is_list(body) do
     body
     |> List.first()
     |> build_result()
   end
 
+  defp process_response({:ok, %{body: body}}) do
+    build_result(body)
+  end
+
   defp process_response(response), do: response
+
+  defp build_result(nil) do
+    {:error, "No results found for the given address"}
+  end
+
+  defp build_result([]) do
+    {:error, "No results found for the given address"}
+  end
+
+  defp build_result(%{"error" => error}) do
+    {:error, error}
+  end
 
   defp build_result(response) do
     {:ok,
@@ -77,6 +103,7 @@ defmodule Geolixir.Providers.Geocoding do
   end
 
   defp parse_coords(%{"lat" => lat, "lon" => lon}) do
+    [lat, lon] = [lat, lon] |> Enum.map(&elem(Float.parse(&1), 0))
     %Coords{lat: lat, lon: lon}
   end
 
@@ -87,12 +114,22 @@ defmodule Geolixir.Providers.Geocoding do
 
   defp parse_bounds(_), do: %Bounds{}
 
-  defp parse_location(response) do
+  defp parse_location(
+         %{
+           "address" => address
+         } = response
+       ) do
     reduce = fn {type, name}, location ->
       struct(location, [{@address_component_mapping[type], name}])
     end
 
-    response
-    |> Enum.reduce(%Location{}, reduce)
+    location = %Location{
+      formatted_address: response["display_name"]
+    }
+
+    address
+    |> Enum.reduce(location, reduce)
   end
+
+  defp parse_location(_), do: %Location{}
 end

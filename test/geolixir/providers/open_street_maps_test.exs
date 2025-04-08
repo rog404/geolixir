@@ -21,6 +21,13 @@ defmodule Geolixir.Providers.OpenStreetMapsTest do
       assert result == ProviderFixtures.osm_expected_result()
     end
 
+    test "returns {:error, reason} on empty geocoding response" do
+      expect(HttpClient, :request, fn _ -> ProviderFixtures.http_empty_response() end)
+
+      assert {:error, "No results found for the given address"} =
+               OpenStreetMaps.geocode(%{address: @address})
+    end
+
     test "returns {:error, reason} on HTTP client error" do
       expect(HttpClient, :request, fn _ -> ProviderFixtures.http_error_response() end)
       assert {:error, %{status_code: 500}} = OpenStreetMaps.geocode(%{address: @address})
@@ -42,6 +49,11 @@ defmodule Geolixir.Providers.OpenStreetMapsTest do
                result = OpenStreetMaps.reverse_geocode(%{lat: @lat, lon: @lon})
 
       assert result == ProviderFixtures.osm_expected_result()
+    end
+
+    test "returns {:error, reason} on failure reverse geocoding" do
+      expect(HttpClient, :request, fn _ -> ProviderFixtures.unable_to_reverse_geocoding() end)
+      assert {:error, "Unable to geocode"} = OpenStreetMaps.reverse_geocode(%{address: @address})
     end
 
     test "returns {:error, reason} on HTTP client error" do
