@@ -90,8 +90,7 @@ defmodule Geolixir.Providers.Geoapify do
     %Coords{lat: lat, lon: lon}
   end
 
-  defp parse_bounds(%{"boundingbox" => bbox}) do
-    [north, south, west, east] = bbox |> Enum.map(&elem(Float.parse(&1), 0))
+  defp parse_bounds(%{"boundingbox" => [north, south, west, east] }) do
     %Bounds{top: north, right: east, bottom: south, left: west}
   end
 
