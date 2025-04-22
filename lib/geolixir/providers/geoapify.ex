@@ -86,7 +86,7 @@ defmodule Geolixir.Providers.Geoapify do
      }}
   end
 
-  defp parse_coords(%{"coordinates" => [lat, lon]}) do
+  defp parse_coords(%{"coordinates" => [lon, lat]}) do
     %Coords{lat: lat, lon: lon}
   end
 

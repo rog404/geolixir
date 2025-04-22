@@ -16,7 +16,7 @@ Add `geolixir` to your `mix.exs` dependencies:
 ```elixir
 def deps do
   [
-    {:geolixir, "~> 0.1.1"}
+    {:geolixir, "~> 0.1.2"}
   ]
 end
 ```
