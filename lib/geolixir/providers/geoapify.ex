@@ -76,6 +76,8 @@ defmodule Geolixir.Providers.Geoapify do
 
   defp process_response(response), do: response
 
+  defp build_result(nil), do: {:error, :address_not_found}
+
   defp build_result(response) do
     {:ok,
      %Result{

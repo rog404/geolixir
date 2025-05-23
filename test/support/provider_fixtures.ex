@@ -189,7 +189,7 @@ defmodule Geolixir.Test.ProviderFixtures do
 
   @geoapify_expected_result {:ok,
                              %Result{
-                               coordinates: %Coords{lat: -0.1276865, lon: 51.5074133},
+                               coordinates: %Coords{lon: -0.1276865, lat: 51.5074133},
                                bounds: %Bounds{top: nil, right: nil, bottom: nil, left: nil},
                                location: %Location{
                                  country: "United Kingdom",
