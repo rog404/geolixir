@@ -1,13 +1,13 @@
 defmodule Geolixir.MixProject do
   use Mix.Project
 
-  @version "0.1.3"
+  @version "0.1.4"
 
   def project do
     [
       app: :geolixir,
       version: @version,
-      elixir: "~> 1.18",
+      elixir: "~> 1.19",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: "A simple and efficient geolocation library for Elixir applications.",
@@ -59,7 +59,7 @@ defmodule Geolixir.MixProject do
       {:httpoison, "~> 2.0"},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      {:mimic, "~> 1.10", only: :test}
+      {:mimic, "~> 2.0", only: :test}
     ]
   end
 end

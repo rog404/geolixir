@@ -13,7 +13,7 @@ defmodule Geolixir do
   ```elixir
   def deps do
     [
-      {:geolixir, "~> 0.1.2"}
+      {:geolixir, "~> 0.1.4"}
     ]
   end
   ```
