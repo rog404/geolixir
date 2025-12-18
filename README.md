@@ -42,6 +42,7 @@ iex> Geolixir.geocode("1600 Amphitheatre Parkway, Mountain View, CA")
 # Using a specific provider (e.g., Geoapify, requires API key)
 iex> Geolixir.geocode("Eiffel Tower, Paris", provider: :geoapify, api_key: "YOUR_GEOAPIFY_KEY")
 {:ok, %Geolixir.Result{...}}
+```
 
 ### Reverse Geocoding (Coordinates to Address)
 
