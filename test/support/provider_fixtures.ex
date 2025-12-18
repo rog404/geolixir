@@ -373,6 +373,211 @@ defmodule Geolixir.Test.ProviderFixtures do
 
   def position_stack_expected_result, do: @ps_expected_result
 
+  # --- Google Maps Fixtures ---
+
+  @googlemaps_response_map %{
+    "results" => [
+      %{
+        "address_components" => [
+          %{
+            "long_name" => "Tour Eiffel",
+            "short_name" => "Tour Eiffel",
+            "types" => ["premise"]
+          },
+          %{"long_name" => "5", "short_name" => "5", "types" => ["street_number"]},
+          %{
+            "long_name" => "Avenue Anatole France",
+            "short_name" => "Av. Anatole France",
+            "types" => ["route"]
+          },
+          %{
+            "long_name" => "Paris",
+            "short_name" => "Paris",
+            "types" => ["locality", "political"]
+          },
+          %{
+            "long_name" => "Paris",
+            "short_name" => "Paris",
+            "types" => ["administrative_area_level_2", "political"]
+          },
+          %{
+            "long_name" => "Île-de-France",
+            "short_name" => "IDF",
+            "types" => ["administrative_area_level_1", "political"]
+          },
+          %{
+            "long_name" => "France",
+            "short_name" => "FR",
+            "types" => ["country", "political"]
+          },
+          %{
+            "long_name" => "75007",
+            "short_name" => "75007",
+            "types" => ["postal_code"]
+          }
+        ],
+        "formatted_address" => "Tour Eiffel, 5 Av. Anatole France, 75007 Paris, France",
+        "geometry" => %{
+          "bounds" => %{
+            "northeast" => %{"lat" => 48.8590375, "lng" => 2.2956631},
+            "southwest" => %{"lat" => 48.85749670000001, "lng" => 2.293321}
+          },
+          "location" => %{"lat" => 48.85840109999999, "lng" => 2.294499},
+          "location_type" => "ROOFTOP",
+          "viewport" => %{
+            "northeast" => %{
+              "lat" => 48.85965713029151,
+              "lng" => 2.295841030291502
+            },
+            "southwest" => %{
+              "lat" => 48.85695916970851,
+              "lng" => 2.293143069708498
+            }
+          }
+        },
+        "navigation_points" => [
+          %{
+            "location" => %{"latitude" => 48.8590756, "longitude" => 2.2936711},
+            "restricted_travel_modes" => ["WALK"]
+          },
+          %{
+            "location" => %{"latitude" => 48.8583827, "longitude" => 2.2944716},
+            "restricted_travel_modes" => ["DRIVE"]
+          }
+        ],
+        "place_id" => "ChIJrbS_8-Fv5kcRzSjPvnUT03s",
+        "types" => ["premise", "street_address"]
+      }
+    ],
+    "status" => "OK"
+  }
+
+  @googlemaps_expected_result {:ok,
+                               %Geolixir.Result{
+                                 coordinates: %Geolixir.Coords{
+                                   lat: 48.85840109999999,
+                                   lon: 2.294499
+                                 },
+                                 bounds: %Geolixir.Bounds{
+                                   top: 48.8590375,
+                                   right: 2.2956631,
+                                   bottom: 48.85749670000001,
+                                   left: 2.293321
+                                 },
+                                 location: %Geolixir.Location{
+                                   country: "France",
+                                   country_code: "FR",
+                                   state: "Île-de-France",
+                                   county: "Paris",
+                                   city: "Paris",
+                                   postal_code: "75007",
+                                   street: "Avenue Anatole France",
+                                   street_number: "5",
+                                   formatted_address:
+                                     "Tour Eiffel, 5 Av. Anatole France, 75007 Paris, France"
+                                 },
+                                 metadata: %{
+                                   "address_components" => [
+                                     %{
+                                       "long_name" => "Tour Eiffel",
+                                       "short_name" => "Tour Eiffel",
+                                       "types" => ["premise"]
+                                     },
+                                     %{
+                                       "long_name" => "5",
+                                       "short_name" => "5",
+                                       "types" => ["street_number"]
+                                     },
+                                     %{
+                                       "long_name" => "Avenue Anatole France",
+                                       "short_name" => "Av. Anatole France",
+                                       "types" => ["route"]
+                                     },
+                                     %{
+                                       "long_name" => "Paris",
+                                       "short_name" => "Paris",
+                                       "types" => ["locality", "political"]
+                                     },
+                                     %{
+                                       "long_name" => "Paris",
+                                       "short_name" => "Paris",
+                                       "types" => ["administrative_area_level_2", "political"]
+                                     },
+                                     %{
+                                       "long_name" => "Île-de-France",
+                                       "short_name" => "IDF",
+                                       "types" => ["administrative_area_level_1", "political"]
+                                     },
+                                     %{
+                                       "long_name" => "France",
+                                       "short_name" => "FR",
+                                       "types" => ["country", "political"]
+                                     },
+                                     %{
+                                       "long_name" => "75007",
+                                       "short_name" => "75007",
+                                       "types" => ["postal_code"]
+                                     }
+                                   ],
+                                   "formatted_address" =>
+                                     "Tour Eiffel, 5 Av. Anatole France, 75007 Paris, France",
+                                   "geometry" => %{
+                                     "bounds" => %{
+                                       "northeast" => %{"lat" => 48.8590375, "lng" => 2.2956631},
+                                       "southwest" => %{
+                                         "lat" => 48.85749670000001,
+                                         "lng" => 2.293321
+                                       }
+                                     },
+                                     "location" => %{
+                                       "lat" => 48.85840109999999,
+                                       "lng" => 2.294499
+                                     },
+                                     "location_type" => "ROOFTOP",
+                                     "viewport" => %{
+                                       "northeast" => %{
+                                         "lat" => 48.85965713029151,
+                                         "lng" => 2.295841030291502
+                                       },
+                                       "southwest" => %{
+                                         "lat" => 48.85695916970851,
+                                         "lng" => 2.293143069708498
+                                       }
+                                     }
+                                   },
+                                   "navigation_points" => [
+                                     %{
+                                       "location" => %{
+                                         "latitude" => 48.8590756,
+                                         "longitude" => 2.2936711
+                                       },
+                                       "restricted_travel_modes" => ["WALK"]
+                                     },
+                                     %{
+                                       "location" => %{
+                                         "latitude" => 48.8583827,
+                                         "longitude" => 2.2944716
+                                       },
+                                       "restricted_travel_modes" => ["DRIVE"]
+                                     }
+                                   ],
+                                   "place_id" => "ChIJrbS_8-Fv5kcRzSjPvnUT03s",
+                                   "types" => ["premise", "street_address"]
+                                 }
+                               }}
+  def googlemaps_success_response do
+    {
+      :ok,
+      %{
+        status_code: 200,
+        headers: [],
+        body: @googlemaps_response_map
+      }
+    }
+  end
+
+  def googlemaps_expected_result, do: @googlemaps_expected_result
+
   # --- Common Error Fixtures ---
 
   def unable_to_reverse_geocoding do

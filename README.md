@@ -6,7 +6,7 @@ Welcome to Geolixir! This library makes it simple to work with geocoding in your
 
 *   **Geocoding:** Find latitude and longitude from an address.
 *   **Reverse Geocoding:** Find address details from latitude and longitude.
-*   **Multiple Providers:** Supports various geocoding services (like OpenStreetMap, Geoapify, etc.). You can choose your preferred provider or stick with the default.
+*   **Multiple Providers:** Supports various geocoding services (OpenStreetMap, Geoapify, Google Maps, Geocoding, PositionStack). You can choose your preferred provider or stick with the default.
 *   **Simple Interface:** Easy-to-use functions for common tasks.
 
 ## 🚀 Installation

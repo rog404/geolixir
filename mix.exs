@@ -42,7 +42,6 @@ defmodule Geolixir.MixProject do
       # The main module for landing page
       main: "Geolixir",
       source_url: "https://github.com/rog404/geolixir",
-      # Optional: link to tagged version
       source_ref: "v#{@version}",
       extras: ["README.md", "LICENSE"],
       groups_for_modules: [

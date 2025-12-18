@@ -64,7 +64,8 @@ defmodule Geolixir do
     open_street_maps: Geolixir.Providers.OpenStreetMap,
     geoapify: Geolixir.Providers.Geoapify,
     geocoding: Geolixir.Providers.Geocoding,
-    position_stack: Geolixir.Providers.PositionStack
+    position_stack: Geolixir.Providers.PositionStack,
+    google_maps: Geolixir.Providers.GoogleMaps
   }
 
   @default_provider :open_street_maps
